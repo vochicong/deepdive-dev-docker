@@ -2,8 +2,10 @@
 
 This step take about 5 mins.
 
-Create a VM, OS: Ubuntu 16.04 LTS, GCP VM type: n1-standad-1, SSD: 10GB.
-Install some basic softwares:
+Create a VM with OS: Ubuntu 16.04 LTS.
+GCP Machine type: `n1-standard-1` (1 vCPU, 3.75 GB memory) is fast enough.
+
+Install some basic tools:
 
     sudo apt-get install --yes software-properties-common apt-transport-https nodejs git jq
 
@@ -17,14 +19,21 @@ Install Docker
     sudo apt-get update
     sudo apt-get install --yes docker-ce
     sudo usermod -a -G docker `whoami`   
-    logout # relogin
+    pkill -u `whoami` # this will log you out. Re-login again to have docker group settings enabled.
     docker run hello-world # make sure you can run docker
     
 # Build and test DeepDive Docker
+
+This step takes about 15m.
 
     git clone https://github.com/HazyResearch/deepdive.git # take about 3m
     cd deepdive
     git submodule update --init
     time ./DockerBuild/build-in-container # need jq, take about 5m
     time ./DockerBuild/test-in-container-postgres # take about 6m
-    # make depends # may help you install required build tools
+
+# Build DeepDive on local VM
+
+    make depends # help you install required build tools
+    make install # target: ~/local
+
