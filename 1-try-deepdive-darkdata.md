@@ -3,9 +3,11 @@
 This step take about 5 mins.
 
 Create a VM with **Ubuntu 16.04 LTS**.
-GCP Machine type: *n1-standard-1* (1 vCPU, 3.75 GB memory) is fast enough.
-Note that smaller machine types take very long time to build things,
-Debian Jessie and Ubuntu 14.04 LTS didn't go smooth when testing DeepDive.
+GCP Machine type: *n1-standard-1* (1 vCPU, 3.75 GB memory, at least **13GB** of disk) is good enough.
+Note that 
+- smaller machine types take very long time to build things. 
+- a default GCP 10GB disk will get full during DeepDive build process, so don't select it.
+- Debian Jessie and Ubuntu 14.04 LTS don't go smooth when testing DeepDive.
 
 Install some basic tools:
 
