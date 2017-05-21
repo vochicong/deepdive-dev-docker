@@ -60,17 +60,19 @@ It will fail the 1st time, saying `bower` not found.
 
 Need PostgreSQL, ts and Pyhocon for testing.
 
-    sudo apt-get install postgresql moreutils python-pip --yes
+    sudo apt-get install postgresql moreutils python-pip python-virtualenv pbzip2 --yes
     sudo pip install --upgrade pip
     sudo chown -R `whoami` ~/.cache
-    pip install pyhocon
+    virtualenv env
+    source env/bin/activate
+    pip install psycopg2 pyhocon ujson
     export PATH=~/.local/bin:$PATH # ~/.local/bin/pyhocon
 
-Create a PostgreSQL user with DB creation permission, then run tests:
+Create a PostgreSQL dbuser with CREATEDB and SUPERUSER permissions,
+then run tests:
 
     export TEST_DBHOST=dbuser:dbpassword@localhost
     make test # 164 tests, 14 failures, 7 skipped 
-    make test ONLY=test/postgresql/spouse_example.bats # 10 tests, 4 failures, 2 skipped
+    make test ONLY=test/postgresql/spouse_example.bats # 10 tests, 0 failures, 2 skipped
 
-There're some errors regarding the `spouse_example`.
-    
+If [errors happen](2-test-spouse-example.log), you may need to install some software dependencies.
