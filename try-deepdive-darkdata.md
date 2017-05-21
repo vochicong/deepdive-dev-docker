@@ -2,8 +2,10 @@
 
 This step take about 5 mins.
 
-Create a VM with OS: Ubuntu 16.04 LTS.
-GCP Machine type: `n1-standard-1` (1 vCPU, 3.75 GB memory) is fast enough.
+Create a VM with **Ubuntu 16.04 LTS**.
+GCP Machine type: *n1-standard-1* (1 vCPU, 3.75 GB memory) is fast enough.
+Note that smaller machine types take very long time to build things,
+Debian Jessie and Ubuntu 14.04 LTS didn't go smooth when testing DeepDive.
 
 Install some basic tools:
 
