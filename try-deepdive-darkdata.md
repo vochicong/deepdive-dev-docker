@@ -9,7 +9,7 @@ Debian Jessie and Ubuntu 14.04 LTS didn't go smooth when testing DeepDive.
 
 Install some basic tools:
 
-    sudo apt-get install --yes software-properties-common apt-transport-https nodejs git jq
+    sudo apt-get install --yes software-properties-common apt-transport-https nodejs npm git jq
 
 Install Docker
 
@@ -36,6 +36,14 @@ This step takes about 15m.
 
 # Build DeepDive on local VM
 
-    make depends # help you install required build tools
-    make install # target: ~/local
+To install DeepDive into `~/local/bin`
 
+    make depends # help you install required build tools
+    make install 
+    
+It will fail the 1st time, saying `bower` not found.
+
+    cd util/mindbender/gui/frontend && npm install bower
+    make install # now try it again
+    ls ~/local/bin 
+    > ddlog  deepdive  mindbender
