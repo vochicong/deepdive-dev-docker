@@ -58,7 +58,7 @@ It will fail the 1st time, saying `bower` not found.
 
 ## Test
 
-Need PostgreSQL, ts and Pyhocon for testing.
+Testing requires PostgreSQL, ts, pbzip2 and Pyhocon, psycopg2 and ujson.
 
     sudo apt-get install postgresql moreutils python-pip python-virtualenv pbzip2 --yes
     sudo pip install --upgrade pip
@@ -66,13 +66,18 @@ Need PostgreSQL, ts and Pyhocon for testing.
     virtualenv env
     source env/bin/activate
     pip install psycopg2 pyhocon ujson
-    export PATH=~/.local/bin:$PATH # ~/.local/bin/pyhocon
 
-Create a PostgreSQL dbuser with CREATEDB and SUPERUSER permissions,
+Create a PostgreSQL dbuser with SUPERUSER permissions.
+
+    sudo -s -u postgres
+    psql
+    ALTER ROLE dbuser WITH SUPERUSER;
+    
 then run tests:
 
+    export PATH=~/.local/bin:$PATH # ~/.local/bin/pyhocon
     export TEST_DBHOST=dbuser:dbpassword@localhost
-    make test # 164 tests, 14 failures, 7 skipped 
+    make test # 164 tests, 0 failures, 7 skipped, takes about 3min 
     make test ONLY=test/postgresql/spouse_example.bats # 10 tests, 0 failures, 2 skipped
 
 If errors happen (see 2-test-spouse-example.log), 
