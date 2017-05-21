@@ -28,7 +28,9 @@ Install Docker
     
 # Build and test DeepDive Docker
 
-This step takes about 15m.
+The steps takes about 15m.
+
+Ref: [deepdive/.travis.yml](https://github.com/HazyResearch/deepdive/blob/master/.travis.yml)
 
     git clone https://github.com/HazyResearch/deepdive.git # take about 3m
     cd deepdive
@@ -43,6 +45,10 @@ This step takes about 15m.
     time ./DockerBuild/test-in-container-postgres # take about 6m
 
 # Build DeepDive on local VM
+
+The steps may take a hour.
+
+Ref: [Building and Testing DeepDive](http://deepdive.stanford.edu/developer)
 
 ## Build
 To install DeepDive into `~/local/bin`
