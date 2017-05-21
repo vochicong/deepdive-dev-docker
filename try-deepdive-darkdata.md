@@ -31,11 +31,18 @@ This step takes about 15m.
     git clone https://github.com/HazyResearch/deepdive.git # take about 3m
     cd deepdive
     git submodule update --init
+
+## Build
+
     time ./DockerBuild/build-in-container # need jq, take about 5m
+
+## Test
+
     time ./DockerBuild/test-in-container-postgres # take about 6m
 
 # Build DeepDive on local VM
 
+## Build
 To install DeepDive into `~/local/bin`
 
     make depends # help you install required build tools
@@ -47,3 +54,9 @@ It will fail the 1st time, saying `bower` not found.
     make install # now try it again
     ls ~/local/bin 
     > ddlog  deepdive  mindbender
+
+## Test
+
+    sudo apt-get install postgresql --yes
+    make test ONLY=test/postgresql/spouse_example.bats
+    
