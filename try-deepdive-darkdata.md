@@ -54,9 +54,23 @@ It will fail the 1st time, saying `bower` not found.
     make install # now try it again
     ls ~/local/bin 
     > ddlog  deepdive  mindbender
+    export PATH=~/local/bin:$PATH # ~/local/bin/deepdive
 
 ## Test
 
-    sudo apt-get install postgresql --yes
-    make test ONLY=test/postgresql/spouse_example.bats
-    
+Need PostgreSQL, ts and Pyhocon for testing.
+
+    sudo apt-get install postgresql moreutils python-pip --yes
+    sudo pip install --upgrade pip
+    sudo chown -R `whoami` ~/.cache
+    pip install pyhocon
+    export PATH=~/.local/bin:$PATH # ~/.local/bin/pyhocon
+
+Create a PostgreSQL user with DB creation permission, then run tests:
+
+    export TEST_DBHOST=dbuser:dbpassword@localhost
+    make test # 164 tests, 14 failures, 7 skipped 
+    make test ONLY=test/postgresql/spouse_example.bats # 10 tests, 4 failures, 2 skipped
+
+There're some errors regarding the `spouse_example`.
+    
