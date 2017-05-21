@@ -75,4 +75,5 @@ then run tests:
     make test # 164 tests, 14 failures, 7 skipped 
     make test ONLY=test/postgresql/spouse_example.bats # 10 tests, 0 failures, 2 skipped
 
-If [errors happen](2-test-spouse-example.log), you may need to install some software dependencies.
+If errors happen (see 2-test-spouse-example.log), 
+you may need to install some software dependencies.
