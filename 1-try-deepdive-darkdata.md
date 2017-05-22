@@ -1,14 +1,3 @@
-# Prepare VM
-
-This step take about 5 mins.
-
-Create a VM with **Ubuntu 16.04 LTS**.
-GCP Machine type: *n1-standard-1* (1 vCPU, 3.75 GB memory, **40GB** of disk) is good enough.
-Note that 
-- smaller machine types take very long time to build things. 
-- a default GCP 10GB disk will get full during DeepDive build or docker pull, so don't select it.
-- Debian Jessie and Ubuntu 14.04 LTS don't go smooth when testing DeepDive.
-
 # Quick Start using DeepDive Notebooks Docker
 
     bash <(curl -fsSL git.io/getdeepdive) deepdive_docker_sandbox
@@ -29,6 +18,17 @@ When the dockers running, you can access `DeepDive` Jupyter notebooks at `http:/
 and `Mindbender` at `http://localhost:8000`.
 
 # Build and test DeepDive using Docker
+
+## Prepare VM
+
+This step take about 5 mins.
+
+Create a VM with **Ubuntu 16.04 LTS**.
+GCP Machine type: *n1-standard-2* (1 vCPU, > 4 GB memory, **40GB** of disk) is good enough.
+Note that 
+- smaller machine types take very long time to build things. 
+- a default GCP 10GB disk will get full during DeepDive build or docker pull, so don't select it.
+- Debian Jessie and Ubuntu 14.04 LTS don't go smooth when testing DeepDive.
 
 The steps takes about 15m.
 
