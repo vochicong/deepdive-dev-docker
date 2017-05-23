@@ -1,25 +1,23 @@
 # Quick Start using DeepDive Notebooks Docker
 
-    bash <(curl -fsSL git.io/getdeepdive) deepdive_docker_sandbox
-
-to install deepdive_docker_sandbox, in which you can try
-many examples.
+    git clone --depth 1 https://github.com/HazyResearch/deepdive.git
+    cd deepdive/sandbox
+    docker-compose pull
 
 Note that the host machine (your Mac or VM) must have **more than 4GB of memory**,
 o.w. `deepdive corenlp start` will freeze or crash later.
 
-`Ctrl-C` to cancel the command above. Edit the downloaded `deepdive-master/sandbox/docker-compose.yml`
+Edit `deepdive/sandbox/docker-compose.yml`
 to expose port `8000`. Start the dockers by
 
-    cd deepdive-master/sandbox
-    docker-compose up
+    docker-compose up --no-build 
 
 When the dockers running, you can access `DeepDive` Jupyter notebooks at `http://localhost:8888`,
 and `Mindbender` at `http://localhost:8000`.
 
 # Build and test DeepDive using Docker
 
-## Prepare VM
+## Prepare host docker
 
 This step take about 5 mins.
 
@@ -34,7 +32,21 @@ The steps takes about 15m.
 
 Ref: [deepdive/.travis.yml](https://github.com/HazyResearch/deepdive/blob/master/.travis.yml)
 
-## Install Docker
+To start a docker container that will work as our development environment
+
+    git clone --depth 1 https://github.com/HazyResearch/deepdive.git
+    docker run -it -v `pwd`/deepdive:/deepdive debian bash
+
+Inside the host docker, install basic tools and dependencies.
+
+    apt-get update
+    apt-get install -y curl sudo cmake
+    cd /deepdive
+    time util/install.sh _deepdive_build_deps _deepdive_runtime_deps
+    make depends
+    
+
+## Install Docker into the host Docker
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository \
@@ -128,3 +140,12 @@ then run tests:
 
 If errors happen (see 2-test-spouse-example.log), 
 you may need to install some software dependencies.
+
+# Misc.
+
+## Docker cleanup
+
+    docker system prune -a
+    docker ps -a
+    docker system df
+    
