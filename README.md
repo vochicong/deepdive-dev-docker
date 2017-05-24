@@ -7,18 +7,15 @@ Note that
 - Low spec machine types take very long time to install and build things. 
 - A default GCP 10GB disk will get full during DeepDive build or docker pull.
 
-[Install(#docker-installation-for-debian) and make sure that you can run docker properly.
+[Install docker](#docker-installation-for-debian) and make sure that you can run it properly.
 
 ## Build and start Docker container
-
-[Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) 
-with all steps below executed are attached.
 
     time docker-compose up # take about 3m
     
 When the dockers running, you can 
-access `DeepDive` Jupyter notebooks at `http://localhost:8888/?token=SECRET`,
-and `Mindbender` at `http://localhost:8000`.
+access DeepDive Jupyter notebooks at http://localhost:8888/?token=SECRET,
+and Mindbender at http://localhost:8000.
 
 On another terminal, you can use `bash` for development work
 in the container running.
@@ -123,7 +120,6 @@ then run tests:
 
 If errors happen (see 2-test-spouse-example.log), 
 you may need to install some software dependencies.
-
 
 ## To checkout DeepDive source
 
