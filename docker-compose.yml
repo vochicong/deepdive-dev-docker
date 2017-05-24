@@ -1,0 +1,20 @@
+# Docker Compose file for DeepDive developers
+version: '2'
+services:
+  # the container for DeepDive development
+  deepdive-dev:
+    image: vochicong/deepdive-dev
+    build: .
+    
+    # For running dockers inside docker
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      
+    ports:
+      - "8888:8888" # For Jupyter
+      - "8000:8000" # For Mindbender
+    command: 
+      - bash
+      - -c
+      - source env/bin/activate && jupyter notebook --ip 0.0.0.0 --no-browser
