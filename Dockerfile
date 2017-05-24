@@ -19,13 +19,15 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
     
+# Update source code from GitHub then run make.
 USER $USER
 RUN git checkout master && git pull origin master \ 
  && make depends install test \
  && echo 'export PATH="~/local/bin:$PATH"' >> ~/.bashrc
  
+# Install Jupyter Python Notebook into virtual env
 SHELL ["/bin/bash", "-c"]
-RUN virtualenv env \
- && source env/bin/activate \
- && pip install --upgrade pip \
- && pip install jupyter
+RUN virtualenv env
+# && source env/bin/activate \
+# && pip install --upgrade pip \
+# && pip install jupyter

@@ -1,15 +1,33 @@
-# Prepare workspace VM
+# DeepDive development environment using Docker
 
-For a workspace, create a VM with **Debian Jessie**, with more than 4 GB of memory an **100GB** of disk.
+## Prepare Docker host VM
+
+I recommend a VM with **Debian Jessie** OS, more than 4 GB of memory, and **100GB** of disk.
 Note that 
-- low spec machine types take very long time to build things. 
-- a default GCP 10GB disk will get full during DeepDive build or docker pull, so don't select it.
+- Low spec machine types take very long time to install and build things. 
+- A default GCP 10GB disk will get full during DeepDive build or docker pull.
 
-Install and make sure that you can run docker properly.
+[Install(#docker-installation-for-debian) and make sure that you can run docker properly.
 
-    docker run hello-world # make sure you can run docker
+## Build and start Docker container
+
+[Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) 
+with all steps below executed are attached.
+
+    time docker-compose up # take about 3m
     
-# Quick Start for DeepDive users
+When the dockers running, you can 
+access `DeepDive` Jupyter notebooks at `http://localhost:8888/?token=SECRET`,
+and `Mindbender` at `http://localhost:8000`.
+
+On another terminal, you can use `bash` for development work
+in the container running.
+
+    docker exec -it deepdivedevdocker_deepdive-dev_1 bash
+
+# Misc
+
+## Quick Start for DeepDive users
 
     git clone --depth 1 https://github.com/HazyResearch/deepdive.git
     cd deepdive/sandbox
@@ -27,46 +45,18 @@ and `Mindbender` at `http://localhost:8000`.
 Note that the host machine (your Mac or VM) don't have enough memory
 `deepdive corenlp start` will freeze or crash later.
 
-# DeepDive development using Docker, for developers
+## DeepDive build and testing using Docker (as done in TravisCI)
 
-[Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) 
-with all steps below executed are attached.
-
-To start a docker container that will work as our development environment
-
-    docker run --name deepdive-devenv -it --privileged -v /var/run/docker.sock:/var/run/docker.sock hazyresearch/deepdive-build bash
-
-After stopping the docker, you can start it again by:
-
-    docker start -i deepdive-devenv
-    
-Inside the host docker, update source code from GitHub then run make.
-
-    cd /deepdive && git checkout master && git pull origin master \
-    && time make depends test install \
-    && echo 'export PATH="~/local/bin:$PATH"' >> ~/.bashrc && . ~/.bashrc
-    
-Install Jupyter Python Notebook via pip
-
-    sudo apt-get install -y python-pip python-virtualenv
-    virtualenv env
-    source env/bin/activate
-    pip install --upgrade pip
-    pip install jupyter
-    jupyter notebook
-
-# DeepDive build and testing using Docker (as done in TravisCI)
-
-## Build
+### Build
 
     sudo apt-get install -y jq software-properties-common nodejs npm 
     time make build--in-container # need jq, take about 5m
 
-## Test
+### Test
 
     time make test--in-container # take about 6m
 
-## Inspect
+### Inspect
 
 To run interactive commands on the sample and test results, start the container:
 
@@ -82,7 +72,7 @@ Inside the container:
     deepdive do articles
     deepdive query '?- articles("5beb863f-26b1-4c2f-ba64-0c3e93e72162", content).' format=csv | grep -v '^$' | tail -n +16 | head
 
-# Build DeepDive on local VM
+## Build DeepDive on local VM
 
 The steps may take an hour.
 
@@ -92,7 +82,7 @@ Install some basic tools:
 
     sudo apt-get install --yes software-properties-common nodejs npm git jq
 
-## Build
+### Build
 
 To install DeepDive into `~/local/bin`
 
@@ -107,7 +97,7 @@ It will fail the 1st time, saying `bower` not found.
     > ddlog  deepdive  mindbender
     export PATH=~/local/bin:$PATH # ~/local/bin/deepdive
 
-## Test
+### Test
 
 Testing requires PostgreSQL, ts, pbzip2 and Pyhocon, psycopg2 and ujson.
 
@@ -134,7 +124,6 @@ then run tests:
 If errors happen (see 2-test-spouse-example.log), 
 you may need to install some software dependencies.
 
-# Misc.
 
 ## To checkout DeepDive source
 
@@ -155,10 +144,20 @@ you may need to install some software dependencies.
     sudo apt-get install -y docker-ce
     sudo usermod -a -G docker `whoami`   
     pkill -u `whoami` # this will log you out. Re-login again to have docker group settings enabled.
+    docker run hello-world # make sure you can run docker
     
 ## Some Docker commands
 
     docker system prune -af # Remove all unused docker data
     docker system df # Show docker disk usage
     docker ps -a # Show all containers
+    
+
+To start a docker container the first time.
+
+    docker run --name deepdive-devenv -it --privileged -v /var/run/docker.sock:/var/run/docker.sock hazyresearch/deepdive-build bash
+
+After stopping the docker, you can start it.
+
+    docker start -i deepdive-devenv
     
