@@ -13,7 +13,7 @@ Note that
 
 To pull the prebuilt image and run it:
 
-    time docker-compose pull
+    time docker-compose pull # 3GB, take about 5m
     docker-compose up --no-build 
     
 Instead, if you want to rebuild the docker image:
