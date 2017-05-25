@@ -27,7 +27,7 @@ RUN git checkout master && git pull origin master \
  
 # Install Jupyter Python Notebook into virtual env
 SHELL ["/bin/bash", "-c"]
-RUN virtualenv env
-# && source env/bin/activate \
-# && pip install --upgrade pip \
-# && pip install jupyter
+RUN virtualenv env \
+ && source env/bin/activate \
+ && pip install --upgrade pip \
+ && pip install jupyter

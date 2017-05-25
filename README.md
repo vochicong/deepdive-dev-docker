@@ -9,18 +9,29 @@ Note that
 
 [Install docker](#docker-installation-for-debian) and make sure that you can run it properly.
 
-## Build and start Docker container
+## Pull and start Docker container
 
-    time docker-compose up # take about 3m
+To pull the prebuilt image and run it:
+
+    time docker-compose pull
+    docker-compose up --no-build 
+    
+Instead, if you want to rebuild the docker image:
+
+    time docker-compose up --build # take about 10m
     
 When the dockers running, you can 
 access DeepDive Jupyter notebooks at http://localhost:8888/?token=SECRET,
-and Mindbender at http://localhost:8000.
+where SECRET is displayed in the console when you start the docker.
+Also Mindbender is available at http://localhost:8000.
 
 On another terminal, you can use `bash` for development work
 in the container running.
 
     docker exec -it deepdivedevdocker_deepdive-dev_1 bash
+
+Original DeepDive source code is available at `/deepdive` inside the docker,
+while folder `./deepdive-dev` on the host VM is mounted to `/deepdive-dev` in the docker.
 
 # Misc
 

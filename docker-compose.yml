@@ -10,11 +10,12 @@ services:
     privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      
+      - ./deepdive-dev:/deepdive-dev
     ports:
       - "8888:8888" # For Jupyter
       - "8000:8000" # For Mindbender
+    working_dir: /deepdive
     command: 
       - bash
       - -c
-      - source env/bin/activate && jupyter notebook --ip 0.0.0.0 --no-browser
+      - source /deepdive/env/bin/activate && jupyter notebook --ip 0.0.0.0 --no-browser
