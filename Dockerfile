@@ -15,9 +15,9 @@ RUN apt-get update \
      stable" \
  && apt-get update \
  && apt-get install -y docker-ce \
+    && vim \
  && usermod -a -G docker $USER \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
     
 # Update source code from GitHub then run make.
 USER $USER

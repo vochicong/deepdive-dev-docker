@@ -33,6 +33,14 @@ in the container running.
 Original DeepDive source code is available at `/deepdive` inside the docker,
 while folder `./deepdive-dev` on the host VM is mounted to `/deepdive-dev` in the docker.
 
+## Tools available
+
+Tools prebuilt in the docker image:
+
+- C compiler and make tools
+- docker-ce
+- Vim editor
+
 # Misc
 
 ## Quick Start for DeepDive users
