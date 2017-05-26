@@ -14,11 +14,11 @@ Note that
 To pull the prebuilt image and run it:
 
     time docker-compose pull # 3GB, take about 5m
-    docker-compose up --no-build 
+    docker-compose up --no-build deepdive-dev
     
 Instead, if you want to rebuild the docker image:
 
-    time docker-compose up --build # take about 10m
+    time docker-compose up --build deepdive-dev # take about 10m
     
 When the dockers running, you can 
 access DeepDive Jupyter notebooks at http://localhost:8888/?token=SECRET,
@@ -31,8 +31,15 @@ in the container running.
     docker exec -it deepdivedevdocker_deepdive-dev_1 bash
 
 Original DeepDive source code is available at `/deepdive` inside the docker,
-while folder `./deepdive-dev` on the host VM is mounted to `/deepdive-dev` in the docker.
+while folders `./deepdive-dev` and `./jupyter-config` on the host VM is mounted to 
+`/deepdive-dev` and `/home/user/.jupyter` in the docker.
 
+To be able to RW data both on host and in Docker, on host VM try
+
+    sudo usermod -a -G docker `whoami`   
+    sudo chown -R `whoami`:docker ./deepdive-dev ./jupyter-config
+    sudo chmod -R g+rXw ./deepdive-dev ./jupyter-config
+ 
 ## Tools available
 
 Tools prebuilt in the docker image:
@@ -42,6 +49,16 @@ Tools prebuilt in the docker image:
 - Vim editor
 
 # Misc
+
+## Run your own Jupyter server
+
+To run a public Jupyter server with a single user (yourself):
+
+1. Get a domain for your Jupyter server
+2. Use [Let’s Encrypt](https://letsencrypt.org/) to acquire a free SSL certificate
+3. [Running a private notebook server](http://jupyter-notebook.readthedocs.io/en/latest/public_server.html)
+
+To persist Jupyter and SSL certificate settings, use Docker volumes.
 
 ## Quick Start for DeepDive users
 
