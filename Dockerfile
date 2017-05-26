@@ -15,7 +15,7 @@ RUN apt-get update \
      stable" \
  && apt-get update \
  && apt-get install -y docker-ce \
-    && vim \
+        vim \
  && usermod -a -G docker $USER \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
     
