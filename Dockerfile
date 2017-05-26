@@ -7,7 +7,7 @@ ENV USER=$USER
 
 USER root
 RUN apt-get update \
- && apt-get install -y python-pip python-virtualenv apt-transport-https \
+ && apt-get install -y python3-pip python-virtualenv python3-virtualenv apt-transport-https \
  && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \
  && add-apt-repository \
      "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -27,7 +27,7 @@ RUN git checkout master && git pull origin master \
  
 # Install Jupyter Python Notebook into virtual env
 SHELL ["/bin/bash", "-c"]
-RUN virtualenv env \
+RUN virtualenv -p python3 env \
  && source env/bin/activate \
- && pip install --upgrade pip \
- && pip install jupyter
+ && pip3 install --upgrade pip \
+ && pip3 install jupyter
